@@ -1,12 +1,13 @@
-angular.module('Grub', ['ngAnimate','ui.router','templates'])
-    .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
+var Grub = angular.module('Grub', ['ngAnimate','ui.router','templates']);
+
+    Grub.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 
         /* Route and States */
         $stateProvider
         .state('home', {
             url: '/',
             templateUrl: 'home.html',
-            controller: 'HomeCtrl'
+            controller: 'LoginCtrl'
         });
 
         $urlRouterProvider.otherwise('/'); // default fallback route
