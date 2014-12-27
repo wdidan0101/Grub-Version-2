@@ -1,0 +1,98 @@
+1. rails new --database==postgresql PROJECT-NAME
+
+2. rake db:create db:migrate
+
+3. = add to Gemfile =
+
+	gem 'bower-rails'
+	gem 'angular-rails-templates'
+
+	$ bundle install
+
+4. rails g bower_rails:initialize json
+
+5. = add to Bower.json =
+	"name": "bower-rails generated lib assets",
+	"dependencies": {
+	    "angular": "latest",
+	    "angular-ui-router": "latest",
+	    "angular-animate": "latest"
+	}
+
+	$ rake bower:install
+
+6. = remove turbolinks references = 
+   = from stylesheet_link_tag, javascript_include_tag =
+   = from application.html.erb =
+
+	<%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+
+    = add to application.html.erb =
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+7. = refactor application.js to be like so =
+
+//= require jquery
+//= require jquery_ujs
+//= require angular
+//= require angular-animate
+//= require angular-ui-router
+//= require angular-rails-templates
+//= require_tree .
+//= require_tree ../templates
+
+8. = add to application.html.erb your ng-app =
+
+    <body ng-app="myApp">
+
+9. = add to routes.rb =
+
+    root 'application#index'
+    get '*path' => 'application#index'
+
+10. = add to application_controller.rb =
+
+    def index
+    end
+
+11. = create the folder app/views/application =
+	= add the file, index.html.erb =
+
+    <div ui-view></div>
+
+12. = create folder app/assets/javascripts/ng-app, add app.js =
+
+angular.module('myApp', ['ngAnimate','ui.router','templates'])
+    .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
+
+        /* Route and States */
+        $stateProvider
+        .state('home', {
+            url: '/',
+            templateUrl: 'example.html',
+            controller: 'ExampleController'
+        });
+
+        $urlRouterProvider.otherwise('/'); // default fallback route
+        $locationProvider.html5Mode({ // enable HTML5 mode for SEO
+          enabled: true,
+          requireBase: false
+        });
+    });
+
+13. = create the folder app/assets/templates =
+	= this is where you will put your partials =
+
+14. = create folder app/assets/javascripts/ng-app/controllers =
+	= this is where you will place your controllers =
+	= add file, myController.js = 
+
+	angular.module('ExampleApp')
+	    .controller('ExampleController', function ($scope) {
+	        $scope.variable = something;
+	    });
+
+15. = include partials outside of ui-view with ng-include in index.html.erb =
+
+	<div ng-include="'partial.html'"></div>
