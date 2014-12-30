@@ -1,0 +1,33 @@
+<div id='sign-up-div'>
+	<h3 class='font sign-in-header'>- Sign Up -</h3>
+	<form ng-submit='signUp.submit()' name='signUpForm' id='signUpForm'>
+
+		<div>
+			<label>Name</label>
+			<input type="text" name="username" ng-model="signup.user.username"
+					class='username' required ng-minlength="4" >
+		</div>
+
+		<div>
+			<label>Email</label>
+			<input type="text" name="username" ng-model="signup.user.username"
+					class='username' required ng-minlength="4" >
+		</div>
+
+		<div>
+			<label>Username</label>
+			<input type="text" name="username" ng-model="signup.user.username"
+					class='username' required ng-minlength="4" >
+		</div>
+
+		<div>
+			<label>Password</label>
+			<input type="password" name='password'
+					class='password' 
+					ng-model="signup.user.password" required >
+		</div>
+			<input type='submit' value='Sign Up' 
+				class="btn btn-default" id='submit-btn'
+				ng-disabled="signUpForm.$invalid" >
+	</form>
+</div>
